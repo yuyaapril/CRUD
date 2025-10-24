@@ -1,0 +1,15 @@
+  <!DOCTYPE html>
+  <html lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+  <head>
+    <meta charset="UTF-8">
+    <title layout:fragment="title">Student Management</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <h3>OJT - 17</h3>
+      <a th:href="@{/add}"> Add Student</a>
+    </div>
+  </body>
+  </html>
