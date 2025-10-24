@@ -1,0 +1,73 @@
+Spring Boot ရဲ့ Controller – Service – Repository – Entity layer connection
+========================================================================
+(Entity Layer)
+
+👉 Database Table ကို ကိုယ်စားပြုတဲ့ class ဖြစ်တယ်။
+ဘာလုပ်သလဲ?
+Database ထဲမှာ "todos" ဆိုတဲ့ table တစ်ခုပြုလုပ်ဖို့အတွက် model အနေနဲ့ သုံးတယ်။
+Field တစ်ခုချင်းစီ (id, title, completed) က table column တစ်ခုချင်းစီနဲ့ တိုက်ဆိုင်တယ်။
+ဒီ Entity ကို Repository ကအသုံးပြုတယ်။
+============================================
+(Repository Layer)
+
+👉 Database နဲ့ တိုက်ရိုက်ဆက်သွယ်တဲ့ layer ဖြစ်တယ်။
+ဘာလုပ်သလဲ?
+
+JpaRepository ကို extend လုပ်တာနဲ့ Spring Boot က CRUD (Create, Read, Update, Delete) function တွေကို အလိုအလျောက်သုံးနိုင်တယ်။
+
+ဥပမာ –
+
+findAll() → todo list အားလုံးယူတာ
+save(todo) → database ထဲသိမ်းတာ
+deleteById(id) → delete လုပ်တာ
+🧠 Repository Layer က Entity (Todo) နဲ့ Database ကြားက Bridge ဖြစ်တယ်။
+============================================
+(Service Layer)
+
+👉 Business Logic (လုပ်ဆောင်ချက်အကြောင်းအရာ) ကို စုထားတဲ့ Layer ဖြစ်တယ်။
+ဘာလုပ်သလဲ?
+
+Controller ကနေ request လာတဲ့ data တွေကို handle လုပ်ပြီး logic ထည့်ပေးတယ်။
+Repository ကိုခေါ်ပြီး Database တွင် CRUD လုပ်ဆောင်တာ။
+Database နဲ့ Controller ကြားက နောက်ခံ လုပ်ဆောင်မှုအလယ်တန်း (middle layer) ဖြစ်တယ်။
+============================================
+(Controller Layer)
+
+👉 Frontend (user request) နဲ့ Backend (service) ကြားက ချိတ်ဆက်ချက် ဖြစ်တယ်။
+ဘာလုပ်သလဲ?
+
+User (frontend) က GET, POST, DELETE request ပေးလာတာကို လက်ခံတယ်။
+Service ကိုခေါ်ပြီး logic ကို run ပေးတယ်။
+ပြီးရင် result ကို frontend ဆီပြန်ပေးတယ်။
+======================================================
+🔗 Controller → Service → Repository → Entity → Database
+
+ဘယ်လို flow ဖြစ်တယ်ဆိုတော့👇
+
+User က /todos ကို POST လုပ်တယ် →
+👉 Controller မှာ createTodo() method လက်ခံတယ်။
+
+Controller က data ကို Service ဆီပေးတယ်။
+
+Service က logic (validation / checking) ထည့်ပြီး Repository ကိုခေါ်တယ်။
+
+Repository က data ကို Database ထဲသိမ်းတယ်။
+
+ပြန်ပြီး Service → Controller → User ဆီပြန်တယ်။
+=========================================
+အလုပ်လုပ်ပုံ
+
+User (frontend / Postman) က request ပေးတယ်။
+
+Controller က Service ကိုခေါ်တယ်။
+
+Service က Repository ကိုခေါ်ပြီး Database တွင် CRUD လုပ်တယ်။
+
+ပြီးရင် ပြန်လာတဲ့ result ကို Controller က user ဆီ ပြန်ပေးတယ်။
+=====================================================
+Summary Table
+Layer	Class Name	Role	Communicates With
+Entity	Todo.java	Database Table ကို ကိုယ်စားပြု	Repository
+Repository	TodoRepo.java	Database CRUD	Service
+Service	TodoService.java	Logic + Database ဆက်သွယ်	Controller + Repository
+Controller	TodoController.java	API Endpoint + Request Handling	Service
