@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -17,6 +18,8 @@ public class StudentForm {
     Integer age;
     int gender;
     String address;
+    String image;
+    MultipartFile file;
 
 
     public StudentForm(Student student) {
@@ -26,5 +29,9 @@ public class StudentForm {
         this.age = student.getAge();
         this.gender = student.getGender();
         this.address = student.getAddress();
+        this.image = student.getImage();
+//        this.file = student.getFile();
     }
+
+
 }

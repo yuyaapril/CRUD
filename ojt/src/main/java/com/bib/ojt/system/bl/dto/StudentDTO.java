@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -18,6 +19,8 @@ public class StudentDTO {
     private int gender;
     private String genderString;
     private String address;
+    private String image;
+    private MultipartFile file;
 
     public StudentDTO(Student student){
         this.studentId = student.getStudentId();
@@ -27,5 +30,7 @@ public class StudentDTO {
         this.gender = student.getGender();
         this.genderString = student.getGender() == 0 ? "Male" : "Female";
         this.address = student.getAddress();
+        this.image = student.getImage();
+//        this.file = student.getFile();
     }
 }

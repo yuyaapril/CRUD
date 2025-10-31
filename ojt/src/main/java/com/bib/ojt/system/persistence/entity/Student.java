@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -37,6 +38,10 @@ public class Student {
 
     Date updatedAt;
 
+    String image;
+
+//    MultipartFile file;
+
     //Student <= StudentForm
     public Student(StudentForm studentForm) {
         this.name = studentForm.getName();
@@ -44,5 +49,7 @@ public class Student {
         this.age = studentForm.getAge();
         this.gender = studentForm.getGender();
         this.address = studentForm.getAddress();
+        this.image = studentForm.getImage();
+//        this.file = studentForm.getFile();
     }
 }
