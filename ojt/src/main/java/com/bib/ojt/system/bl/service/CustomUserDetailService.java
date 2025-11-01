@@ -1,34 +1,41 @@
 package com.bib.ojt.system.bl.service;
 
 
-import com.bib.ojt.system.persistence.dao.user.UserRepository;
-import com.bib.ojt.system.persistence.entity.User;
+import com.bib.ojt.system.persistence.dao.user.CustomUserRepository;
+import com.bib.ojt.system.persistence.entity.CustomUser;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class CustomUserDetailService implements UserDetailsService {
 
-//    @Autowired
+//   @Autowired
 //    private UserRepository userRepository;
 
 //    Constructor Injection
-    private final UserRepository userRepository;
-    CustomUserDetailService(UserRepository userRepository){
-        this.userRepository = userRepository;
+    private final CustomUserRepository customUserRepository;
+    CustomUserDetailService(CustomUserRepository customUserRepository){
+        this.customUserRepository = customUserRepository;
     }
+
+    /**
+     * @param username , login data
+     * @return
+     * @throws UsernameNotFoundException
+     * */
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       User user= this.userRepository.findByUsername(username)
+       CustomUser customUser = this.customUserRepository.findByUsername(username)
                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
 
-        return org.springframework.security.core.userdetails.User
+        return User
                 .withUsername(username)
-                .password(user.getPassword())
-                .roles(user.getRole().getName())
+                .password(customUser.getPassword())
+                .roles(customUser.getRole().getName())
                 .build();
     }
 }
