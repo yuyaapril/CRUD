@@ -31,9 +31,12 @@ public class StudentController {
     }
 
      */
+// public ModelAndView getStudentRegistrationForm(StudentForm studentForm) throws IOException
+    //        String fileName = StringUtils.cleanPath(Objects.requireNonNull(studentForm.getFile().getOriginalFilename()));
+//        FileUploadUtil.saveFile(fileName,studentForm.getFile());
+//        studentForm.setImage(fileName);
+//        this.studentService.doAddStudent(studentForm);
 
-    @GetMapping("/add")
-    public ModelAndView getStudentRegistrationForm(StudentForm studentForm) throws IOException {
 
         /* String fileName = StringUtils.cleanPath(Objects.requireNonNull(bookForm.getFile().getOriginalFilename()));
         FileUploadUtil.saveFile(fileName, bookForm.getFile());
@@ -41,13 +44,11 @@ public class StudentController {
         this.bookService.addBook(bookForm);
         view.setViewName("redirect:/list");
         */
+        @GetMapping("/add")
+        public ModelAndView getStudentRegistrationForm()  {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student/addStudent"); //TODO 1
         modelAndView.addObject("studentForm", new StudentForm());//Form backing object 2
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(studentForm.getFile().getOriginalFilename()));
-        FileUploadUtil.saveFile(fileName,studentForm.getFile());
-        studentForm.setImage(fileName);
-        this.studentService.doAddStudent(studentForm);
         return modelAndView;
     }
 

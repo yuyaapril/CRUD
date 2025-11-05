@@ -1,5 +1,6 @@
 package com.bib.ojt.system.config;
 
+import com.bib.ojt.system.config.components.CustomSuccessLoginHandler;
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, CustomSuccessLoginHandler customSuccessLoginHandler) throws Exception {
         //route filter
         //Custom
         //login(login page ,success url
@@ -43,11 +44,12 @@ public class SecurityConfig {
                 .requestMatchers("/", "/about" ,"contact-us","/css/**" ,"/js/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().authenticated() //logined
         )
                 .formLogin(login -> login
-                        //.loginPage("/login")
-                        .defaultSuccessUrl("/success")
+                        .loginPage("/login")
+                        .successHandler(customSuccessLoginHandler)
+//                        .defaultSuccessUrl("/success")
                         .permitAll()
                 );
 
